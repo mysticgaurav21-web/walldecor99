@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Walldecor99</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body{background:var(--bg-deep);}
+  .admin-wrap{max-width:980px;margin:0 auto;padding:40px 24px 80px;}
+  .admin-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
+  .login-card{max-width:400px;margin:80px auto;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:34px;box-shadow:var(--shadow);}
+  .login-card h1{font-size:1.5rem;margin-bottom:6px;}
+  .login-card p{color:var(--ink-soft);font-size:.88rem;margin-bottom:22px;}
+  label{display:block;font-size:.82rem;font-weight:600;margin:14px 0 6px;}
+  input, select, textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:2px;
+    font-family:inherit;font-size:.92rem;background:#fff;
+  }
+  textarea{resize:vertical;min-height:70px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .btn-solid{background:var(--ink);color:var(--paper);border:none;padding:12px 22px;border-radius:2px;font-weight:600;font-size:.9rem;margin-top:18px;}
+  .btn-ghost{background:none;border:1px solid var(--line);padding:12px 20px;border-radius:2px;font-weight:600;font-size:.9rem;margin-top:18px;margin-left:8px;}
+  .error{color:var(--rust);font-size:.85rem;margin-top:10px;min-height:1em;}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:26px;margin-bottom:26px;box-shadow:var(--shadow);}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;}
+  th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);padding:10px 8px;border-bottom:1px solid var(--line);}
+  td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .muted{color:var(--ink-soft);font-size:.8rem;}
+  .row-actions{display:flex;gap:6px;}
+  .mini-btn{border:1px solid var(--line);background:#fff;padding:6px 10px;border-radius:2px;font-size:.78rem;}
+  .mini-btn.danger{color:var(--rust);border-color:var(--rust);}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+  .toolbar label.file-btn{border:1px solid var(--line);background:#fff;padding:11px 16px;border-radius:2px;font-size:.85rem;font-weight:600;cursor:pointer;margin:0;}
+  .note-banner{background:#F1EAD8;border:1px solid var(--line);border-radius:2px;padding:14px 18px;font-size:.85rem;color:var(--ink-soft);margin-bottom:24px;}
+  #saveNote{opacity:0;transition:opacity .3s;color:var(--sage);font-weight:600;font-size:.85rem;margin-left:12px;}
+</style>
+</head>
+<body>
+
+<div class="admin-wrap">
+
+  <!-- LOGIN -->
+  <div class="login-card" id="loginScreen">
+    <h1>Admin Login</h1>
+    <p>Walldecor99 product manager</p>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" required>
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required>
+      <div class="error" id="loginError"></div>
+      <button class="btn-solid" type="submit">Log In</button>
+    </form>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" style="display:none;">
+    <div class="admin-nav">
+      <h1 style="margin:0;">Product Manager</h1>
+      <div>
+        <a href="index.html" class="mini-btn" style="text-decoration:none;">View Site</a>
+        <button class="mini-btn" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+
+    <div class="note-banner">
+      Changes you make here update the preview <strong>in this browser only</strong>. When you're happy with the catalog, click <strong>Export products.js</strong> below and upload that file to your hosting (replacing the old one) to update the live site for everyone.
+    </div>
+
+    <div class="panel">
+      <div class="toolbar">
+        <button class="mini-btn" id="exportBtn">⬇ Export products.js</button>
+        <label class="file-btn">⬆ Import products.js
+          <input type="file" id="importFile" accept=".js,.json" style="display:none;">
+        </label>
+        <button class="mini-btn" id="resetBtn">Reset to shipped defaults</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 id="formTitle" style="font-size:1.2rem;">Add Product</h2>
+      <form id="productForm">
+        <div class="field-row">
+          <div>
+            <label for="f_name">Product Name</label>
+            <input type="text" id="f_name" required>
+          </div>
+          <div>
+            <label for="f_category">Category</label>
+            <select id="f_category"></select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="f_subcategory">Sub-category <span class="muted">(optional, type new or pick existing)</span></label>
+            <input type="text" id="f_subcategory" list="subOptions">
+            <datalist id="subOptions"></datalist>
+          </div>
+          <div>
+            <label for="f_tag">Tag <span class="muted">(optional — e.g. New, Best Seller)</span></label>
+            <input type="text" id="f_tag">
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="f_price">Price (Rs.)</label>
+            <input type="number" id="f_price" min="0" required>
+          </div>
+          <div>
+            <label for="f_unit">Unit</label>
+            <input type="text" id="f_unit" placeholder="sq.ft" value="sq.ft">
+          </div>
+        </div>
+        <label for="f_image">Image URL</label>
+        <input type="text" id="f_image" placeholder="https://...">
+        <label for="f_description">Description</label>
+        <textarea id="f_description"></textarea>
+        <button class="btn-solid" type="submit" id="submitBtn">Add Product</button>
+        <button class="btn-ghost" type="button" id="cancelEdit">Cancel</button>
+        <span id="saveNote">Saved ✓</span>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2 style="font-size:1.2rem;">All Products</h2>
+      <table>
+        <thead>
+          <tr><th>Image</th><th>Product</th><th>Price</th><th>Tag</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="productTable"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+/* ===== Walldecor99 — Design Tokens =====
+Palette: warm plaster background, near-black ink, brass accent (metal trim),
+sage (grass), rust (secondary accent). Grounded in wall-finishing materials.
+Type: Fraunces (display, characterful serif) + Work Sans (body) + Space Grotesk (labels).
+Signature: "Swatch Strip" — category tiles rendered as physical material samples
+using pure-CSS textures (grooves, dots, facets, fibres) instead of stock photos.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+:root{
+  --bg: #EAE3D5;
+  --bg-deep: #DCD3BE;
+  --paper: #FBF8F1;
+  --ink: #221F1A;
+  --ink-soft: #57534A;
+  --brass: #A5793A;
+  --brass-dark: #7E5B29;
+  --sage: #69745C;
+  --rust: #8B4B36;
+  --line: rgba(34,31,26,0.14);
+  --radius: 2px;
+  --shadow: 0 6px 24px rgba(34,31,26,0.10);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Work Sans', sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  line-height:1.08;
+  margin:0 0 .4em;
+  letter-spacing:-0.01em;
+}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+.eyebrow{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--brass-dark);
+  font-weight:600;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--brass-dark);outline-offset:2px;}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:40;
+  background:rgba(234,227,213,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
+.logo{font-family:'Fraunces', serif;font-weight:700;font-size:1.3rem;letter-spacing:-.01em;text-decoration:none;}
+.logo span{color:var(--brass-dark);font-style:italic;}
+.nav-links{display:flex;gap:28px;list-style:none;margin:0;padding:0;}
+.nav-links a{text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink-soft);}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{
+  background:var(--ink);color:var(--paper);
+  padding:10px 18px;border-radius:var(--radius);
+  font-size:.85rem;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.nav-toggle{display:none;background:none;border:none;font-size:1.4rem;}
+
+/* ---------- Hero ---------- */
+.hero{padding:76px 0 40px;}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;}
+.hero h1{font-size:clamp(2.4rem,4.4vw,3.6rem);}
+.hero h1 em{font-style:italic;color:var(--brass-dark);}
+.hero p{max-width:46ch;color:var(--ink-soft);font-size:1.05rem;margin:18px 0 26px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:var(--radius);
+  font-weight:600;font-size:.92rem;text-decoration:none;border:1px solid transparent;
+}
+.btn-primary{background:var(--sage);color:#fff;}
+.btn-primary:hover{background:#5b6550;}
+.btn-outline{border-color:var(--ink);color:var(--ink);}
+.btn-outline:hover{background:var(--ink);color:var(--paper);}
+.hero-side{border-left:1px solid var(--line);padding-left:36px;}
+.hero-side p{color:var(--ink-soft);font-size:.94rem;margin:0 0 10px;}
+.hero-stats{display:flex;gap:28px;margin-top:14px;}
+.hero-stats div b{font-family:'Fraunces',serif;font-size:1.6rem;display:block;color:var(--brass-dark);}
+.hero-stats div span{font-size:.78rem;color:var(--ink-soft);}
+
+/* ---------- Swatch strip (signature element) ---------- */
+.swatch-strip{padding:10px 0 64px;}
+.swatch-strip .section-head{margin-bottom:22px;}
+.swatches{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:14px;
+}
+.swatch{
+  position:relative;aspect-ratio:3/4;border-radius:var(--radius);
+  overflow:hidden;cursor:pointer;border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  text-decoration:none;color:#fff;
+}
+.swatch::before{content:"";position:absolute;inset:0;}
+.swatch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.55) 100%);}
+.swatch-label{position:relative;z-index:2;padding:14px;}
+.swatch-label .eyebrow{color:rgba(255,255,255,.8);}
+.swatch-label strong{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;}
+.swatch:hover{transform:translateY(-3px);transition:transform .18s ease;}
+
+/* Material textures — pure CSS, tied to each product's real surface */
+.tex-pvc::before{background:
+  repeating-linear-gradient(90deg,#cbbfa6 0 6px,#b7a988 6px 8px),
+  linear-gradient(160deg,#d9cdb0,#a8987a);}
+.tex-wallpaper::before{background:
+  radial-gradient(rgba(255,255,255,.35) 2px, transparent 2.2px) 0 0/18px 18px,
+  linear-gradient(150deg,#8b5a52,#5f3a3a);}
+.tex-glass::before{background:
+  linear-gradient(120deg,rgba(255,255,255,.55),rgba(255,255,255,.05) 40%),
+  linear-gradient(160deg,#7f97a0,#425a63);
+  backdrop-filter:blur(1px);}
+.tex-grass::before{background:
+  repeating-linear-gradient(95deg,#5c7a45 0 3px,#4a6538 3px 6px),
+  linear-gradient(160deg,#6f9450,#3f5a2d);}
+.tex-3d::before{background:
+  linear-gradient(45deg,rgba(255,255,255,.25) 25%,transparent 25%) 0 0/24px 24px,
+  linear-gradient(225deg,rgba(255,255,255,.15) 25%,transparent 25%) 0 0/24px 24px,
+  linear-gradient(160deg,#6b6459,#3a352d);}
+.tex-mosaic::before{background:
+  repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 14px),
+  repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 1px,transparent 1px 14px),
+  linear-gradient(160deg,#3f6f7a,#254852);}
+
+/* ---------- Catalog ---------- */
+.catalog{padding:20px 0 80px;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 30px;}
+.chip{
+  padding:8px 16px;border:1px solid var(--line);border-radius:20px;
+  background:var(--paper);font-size:.85rem;font-weight:500;
+}
+.chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.sub-filters{display:flex;gap:8px;flex-wrap:wrap;margin:-16px 0 26px;}
+.sub-filters .chip{font-size:.78rem;padding:6px 13px;background:transparent;}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.card-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-deep);}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.card-tag{
+  position:absolute;top:10px;left:10px;background:var(--rust);color:#fff;
+  font-size:.68rem;font-weight:600;padding:4px 9px;border-radius:12px;letter-spacing:.03em;
+}
+.card-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.card-cat{font-size:.72rem;color:var(--brass-dark);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;}
+.card-body h3{font-size:1.05rem;}
+.card-desc{font-size:.86rem;color:var(--ink-soft);margin:0;flex:1;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.price{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;}
+.price span{font-size:.72rem;color:var(--ink-soft);font-family:'Work Sans';font-weight:400;}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:6px;background:var(--sage);color:#fff;
+  padding:9px 14px;border-radius:var(--radius);font-size:.8rem;font-weight:600;text-decoration:none;border:none;
+}
+.wa-btn:hover{background:#5b6550;}
+.empty-note{padding:40px 0;text-align:center;color:var(--ink-soft);}
+
+/* ---------- Why us ---------- */
+.why{background:var(--ink);color:var(--paper);padding:70px 0;}
+.why .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+.why h2{grid-column:1/-1;color:var(--paper);font-size:clamp(1.6rem,3vw,2.1rem);max-width:20ch;}
+.why-item .eyebrow{color:var(--brass);}
+.why-item p{color:rgba(251,248,241,.72);font-size:.92rem;}
+
+/* ---------- Footer ---------- */
+footer{padding:44px 0 30px;}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:24px;}
+.foot-inner p{margin:0;font-size:.82rem;color:var(--ink-soft);}
+.foot-inner a{font-size:.82rem;color:var(--ink-soft);text-decoration:none;}
+.foot-inner a:hover{color:var(--ink);}
+
+/* ---------- Floating WhatsApp ---------- */
+.wa-float{
+  position:fixed;bottom:22px;right:22px;z-index:50;
+  background:#3f5a2d;color:#fff;border-radius:50px;
+  padding:14px 20px;display:flex;align-items:center;gap:8px;
+  text-decoration:none;font-weight:600;font-size:.88rem;box-shadow:0 8px 22px rgba(34,31,26,.28);
+}
+
+/* ---------- Modal (product detail) ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(34,31,26,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:20px;}
+.modal-bg.open{display:flex;}
+.modal{background:var(--paper);max-width:560px;width:100%;border-radius:var(--radius);overflow:hidden;max-height:88vh;overflow-y:auto;}
+.modal img{aspect-ratio:16/10;object-fit:cover;width:100%;}
+.modal-body{padding:24px;}
+.modal-close{position:absolute;top:14px;right:16px;background:rgba(0,0,0,.4);color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:1rem;z-index:2;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:920px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-side{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:24px;}
+  .swatches{grid-template-columns:repeat(3,1fr);}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .why .wrap{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+@media (max-width:560px){
+  .swatches{grid-template-columns:repeat(2,1fr);}
+  .grid{grid-template-columns:1fr;}
+  .section-head{flex-direction:column;align-items:flex-start;}
+}
